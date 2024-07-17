@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const button = document.getElementById("gameButton");
-  const message = document.getElementById("message");
-
-  button.addEventListener("click", function () {
-    message.textContent = "Hand Played!";
-    button.disabled = true;
-  });
-});
-const playGame = function () {
+  const buttons = document.querySelectorAll(".choice");
+  const gameChoices = ["rock", "paper", "scissors"]; //added array with gameChoices
+  const displayResult = document.getElementById("result");
+  const displayWins = document.getElementById("wins");
+  const displayTies = document.getElementById("ties");
+  const displayLosses = document.getElementById("losses");
+  const displayRockCount = document.getElementById("rock");
+  const displayPaperCount = document.getElementById("paper");
+  const displayScissorsCount = document.getElementById("scissors");
   //create object to track our statistics
   const stats = {
     wins: 0,
@@ -19,23 +19,67 @@ const playGame = function () {
       scissors: 0,
     },
   };
-  console.log(stats); //logging stats to console
-};
 
-//make an array of options for computer to pick from
-const options = ["R", "P", "S"];
-console.log(options); //console log to show options
-let keepPlaying = true;
+  function getResult(userChoice, computerChoice) {
+    if (userChoice === computerChoice) {
+      return "It's a tie!";
+    } else if (
+      (userChoice === "rock" && computerChoice === "scissors") ||
+      (userChoice === "paper" && computerChoice === "rock") ||
+      (userChoice === "scissors" && computerChoice === "paper")
+    ) {
+      return "YOU WIN!";
+    } else {
+      return "COMPUTER WINS!";
+    }
+  }
 
-//loop until user wants to stop
+  function updateStats(result, userChoice) {
+    if (result === "YOU WIN!") {
+      stats.wins++;
+    } else if (result === "It's a tie!") {
+      stats.ties++;
+    } else {
+      stats.losses++;
+    }
+    //update count for users choice
+    stats.count[userChoice]++;
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const button = document.getElementById("gameButton");
-  const message = document.getElementById("message");
+  //display the counts fo each choice
+  function updateDisplay() {
+    displayWins.textContent = `Wins: ${stats.wins}`;
+    displayTies.textContent = `Ties: ${stats.ties}`;
+    displayLosses.textContent = `Losses ${stats.losses}`;
 
-  button.addEventListener("click", function () {
-    message.textContent = "Hand Played!";
-    button.disabled = true;
+    //display the counts for each choice
+    displayRockCount.textContent = `Rock: ${stats.count.rock}`;
+    displayPaperCount.textContent = `Paper: ${stats.count.paper}`;
+    displayScissorsCount.textContent = `Scissors: ${stats.count.scissors}`;
+  }
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const userChoice = button.id;
+      const computerChoice =
+        gameChoices[Math.floor(Math.random() * gameChoices.length)];
+      const result = getResult(userChoice, computerChoice);
+
+      displayResult.textContent = `You chose ${userChoice}, computer chooses ${computerChoice}. ${result}`;
+      // Clear previous result classes
+      displayResult.classList.remove("win", "loss", "tie");
+
+      // Add appropriate class based on result
+      if (result === "YOU WIN!") {
+        displayResult.classList.add("win");
+      } else if (result === "It's a tie!") {
+        displayResult.classList.add("tie");
+      } else {
+        displayResult.classList.add("loss");
+      }
+
+      //added function to update stat reuslt and display
+      updateStats(result, userChoice);
+      updateDisplay();
+    });
   });
 });
-//loop until user wants to stop

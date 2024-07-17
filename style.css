@@ -18,3 +18,43 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.choices {
+    margin: 20px 0;
+}
+
+.choice {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.result.win {
+    color: green;
+}
+
+.result.loss {
+    color: red;
+}
+
+.result.tie {
+    color: gray;
+}
+
+.stats {
+    margin-top: 20px;
+    font-size: 16px;
+}
