@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("gameButton");
+  const message = document.getElementById("message");
+
+  button.addEventListener("click", function () {
+    message.textContent = "Hand Played!";
+    button.disabled = true;
+  });
+});
 const playGame = function () {
   //create object to track our statistics
   const stats = {
@@ -20,11 +29,13 @@ let keepPlaying = true;
 
 //loop until user wants to stop
 
-while (keepPlaying) {
-  let userChoice = window.prompt("Enter R, P, or S:");
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("gameButton");
+  const message = document.getElementById("message");
 
-  //   if user pressed cancel immediately end function
-  if (!userChoice) {
-    return;
-  }
-}
+  button.addEventListener("click", function () {
+    message.textContent = "Hand Played!";
+    button.disabled = true;
+  });
+});
+//loop until user wants to stop
